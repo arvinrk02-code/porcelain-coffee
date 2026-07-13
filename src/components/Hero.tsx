@@ -10,14 +10,18 @@ import watercolour from "../../public/art/shopfront-watercolour.jpg";
    shop stands. The pendant lamps still work the lights — click one and the
    painting's windows glow like the photograph the painting came from. */
 
-// soft-edged window for the painting — a blurred rect, so all four paper
-// margins dissolve into the page without touching the painted shop itself
-const ART_MASK =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cfilter id='b' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='4.5'/%3E%3C/filter%3E%3Crect x='7' y='7' width='86' height='86' fill='white' filter='url(%23b)'/%3E%3C/svg%3E\")";
+// The paper colour bled inward over every edge of the painting, so it has no
+// boundary against the page — the shop's centre stays crisp, its edges (and the
+// top, the worst offender) melt into the exact page paper. No straight lines.
+const PAPER_FEATHER =
+  "linear-gradient(to bottom, var(--color-paper) 0%, transparent 19%)," +
+  "linear-gradient(to top, var(--color-paper) 0%, transparent 13%)," +
+  "linear-gradient(to right, var(--color-paper) 0%, transparent 15%)," +
+  "linear-gradient(to left, var(--color-paper) 0%, transparent 15%)";
 
 // ragged pigment edge for the bottom of the green wash
 const WASH_MASK =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H100 V84 C93 89 86 83 78 87 C70 91 63 84 55 88 C46 92 38 85 30 89 C22 93 13 86 6 90 L0 87 Z' fill='black'/%3E%3Cellipse cx='18' cy='92' rx='3.4' ry='1.4' fill='black' opacity='0.3'/%3E%3Cellipse cx='80' cy='93' rx='2.8' ry='1.2' fill='black' opacity='0.25'/%3E%3C/svg%3E\")";
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H100 V84 C93 89 86 83 78 87 C70 91 63 84 55 88 C46 92 38 85 30 89 C22 93 13 86 6 90 L0 87 Z' fill='black'/%3E%3C/svg%3E\")";
 
 function PendantLamp({
   cordClass,
@@ -162,16 +166,8 @@ export default function Hero() {
         <PendantLamp cordClass="h-[96px] sm:h-[150px]" delay="-3.2s" lit={lit} onToggle={toggle} />
       </div>
 
-      {/* ------ the painting, emerging from the bleed ------ */}
-      <div
-        className="relative -mt-16 w-[min(88vw,46dvh,30rem)]"
-        style={{
-          maskImage: ART_MASK,
-          WebkitMaskImage: ART_MASK,
-          maskSize: "100% 100%",
-          WebkitMaskSize: "100% 100%",
-        }}
-      >
+      {/* ------ the painting, standing on the paper below the wash ------ */}
+      <div className="relative -mt-6 w-[min(88vw,46dvh,30rem)]">
         <Image
           src={watercolour}
           alt="Watercolour painting of the green shopfront at 3C Old Elvet — Porcelain lettered on both windows, the door between them."
@@ -180,6 +176,12 @@ export default function Hero() {
           sizes="(min-width: 640px) 480px, 88vw"
         />
         <WindowGlow lit={lit} />
+        {/* the edges dissolve into the exact page paper — no boundary, even lit */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-px"
+          style={{ background: PAPER_FEATHER }}
+        />
       </div>
 
       {/* ------ the line, the facts — on paper ------ */}

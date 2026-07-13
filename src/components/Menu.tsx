@@ -130,6 +130,7 @@ function List({
             <li key={item}>
               <span
                 onPointerEnter={onRest}
+                onPointerDown={onRest}
                 className="group flex w-full items-baseline cursor-default"
               >
                 <span className="font-serif text-[1.0625rem] leading-snug transition-colors group-hover:text-shopfront-deep">

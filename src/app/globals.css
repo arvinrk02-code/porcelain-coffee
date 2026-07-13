@@ -102,13 +102,15 @@ button {
   }
 }
 
+/*
+  Reduced motion: we don't nuke everything. Continuous movement (the lamp sway)
+  is already gated behind Tailwind's `motion-safe:`, and the interaction effects
+  (coffee ring, review nudge) check the preference in JS and play a calmer,
+  movement-free version. Gentle colour/opacity fades — the light coming on, the
+  door easing open — are feedback, not vestibular motion, so they stay.
+*/
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  html {
+    scroll-behavior: auto;
   }
 }

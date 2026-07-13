@@ -18,14 +18,21 @@ const POP: Keyframe[] = [
   { offset: 1, transform: "scale(1) rotate(0deg)", boxShadow: "0 0 0 0 rgba(38,33,28,0)" },
 ];
 
+// Reduced-motion version: a soft glow pulse, no movement at all.
+const GLOW: Keyframe[] = [
+  { offset: 0, boxShadow: "0 0 0 0 rgba(38,33,28,0)" },
+  { offset: 0.5, boxShadow: "0 6px 22px 2px rgba(38,33,28,0.28)" },
+  { offset: 1, boxShadow: "0 0 0 0 rgba(38,33,28,0)" },
+];
+
 export default function ReviewCta() {
   const ctaRef = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
     const el = ctaRef.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let visible = false;
     let firstPlayed = false;
     let anim: Animation | null = null;
@@ -33,7 +40,11 @@ export default function ReviewCta() {
     const play = () => {
       if (!visible || document.hidden) return;
       anim?.cancel();
-      anim = el.animate(POP, { duration: 1063, easing: "ease-out" });
+      // still say "hello" under reduced motion — just a glow, no shimmy
+      anim = el.animate(reduce ? GLOW : POP, {
+        duration: reduce ? 900 : 1063,
+        easing: "ease-out",
+      });
     };
 
     const io = new IntersectionObserver(

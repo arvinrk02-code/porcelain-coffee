@@ -6,6 +6,7 @@ import Reviews from "@/components/Reviews";
 import Visit from "@/components/Visit";
 import Footer from "@/components/Footer";
 import ShopfrontLineArt from "@/components/ShopfrontLineArt";
+import WatercolourEdge from "@/components/WatercolourEdge";
 
 import flatWhites from "../../public/photos/flat-whites.jpeg";
 import cabinet from "../../public/photos/cake-cabinet.jpeg";
@@ -74,7 +75,7 @@ export default function Home() {
       {/* ------ welcome: you've stepped off the street ------ */}
       <section
         id="welcome"
-        className="mx-auto grid w-full max-w-5xl scroll-mt-8 items-center gap-12 px-6 pt-24 sm:grid-cols-[1.2fr_1fr] sm:gap-16 sm:pt-32"
+        className="mx-auto grid w-full max-w-5xl scroll-mt-8 items-center gap-12 px-6 pt-14 sm:grid-cols-[1.2fr_1fr] sm:gap-16 sm:pt-20"
         aria-label="Welcome"
       >
         <div>
@@ -124,9 +125,11 @@ export default function Home() {
 
       {/* ------ inside: the mahogany room, photos do the talking ------ */}
       <section
-        className="mt-24 bg-mahogany text-porcelain sm:mt-32"
+        className="relative mt-28 bg-mahogany text-porcelain sm:mt-36"
         aria-label="Inside the shop"
       >
+        <WatercolourEdge className="absolute inset-x-0 top-0 h-5 -translate-y-full text-mahogany" />
+        <WatercolourEdge flip className="absolute inset-x-0 bottom-0 h-5 translate-y-full text-mahogany" />
         <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-24">
           <div className="flex items-baseline gap-4">
             <h2 className="decal pl-[0.3em] text-[1.05rem] tracking-[0.3em]">

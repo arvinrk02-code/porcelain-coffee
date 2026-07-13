@@ -24,6 +24,9 @@
   --color-brass: oklch(0.68 0.09 80); /* letterbox brass, hairlines               */
   --color-hairline: oklch(0.87 0.02 90); /* quiet borders on porcelain            */
 
+  /* watercolour ground */
+  --color-paper: #f8f1e1; /* the painting's paper — hero ground */
+
   /* motion */
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -40,6 +43,20 @@ body {
   background: var(--color-porcelain);
   color: var(--color-ink);
   font-family: var(--font-serif);
+}
+
+/* Faint watercolour-paper grain over everything — the quietest layer of the
+   motif. Pointer-events off; sits under nothing interactive. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.36 0 0 0 0 0.26 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
 }
 
 ::selection {

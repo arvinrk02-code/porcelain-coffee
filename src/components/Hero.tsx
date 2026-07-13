@@ -1,11 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import OpenChip from "./OpenChip";
+import watercolour from "../../public/art/shopfront-watercolour.jpg";
 
-/* The hero is the shopfront: a full drench of the real paint green, framed
-   like the panelled fascia, with the window's own lettering. The globe pendant
-   lamps from inside hang into the field — click one and the lights come on. */
+/* The hero is now a painting of the shopfront. A deep green watercolour wash
+   carries the nav and wordmark, bleeding into warm paper where the painted
+   shop stands. The pendant lamps still work the lights — click one and the
+   painting's windows glow like the photograph the painting came from. */
+
+// soft-edged window for the painting — a blurred rect, so all four paper
+// margins dissolve into the page without touching the painted shop itself
+const ART_MASK =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cfilter id='b' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='4.5'/%3E%3C/filter%3E%3Crect x='7' y='7' width='86' height='86' fill='white' filter='url(%23b)'/%3E%3C/svg%3E\")";
+
+// ragged pigment edge for the bottom of the green wash
+const WASH_MASK =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H100 V84 C93 89 86 83 78 87 C70 91 63 84 55 88 C46 92 38 85 30 89 C22 93 13 86 6 90 L0 87 Z' fill='black'/%3E%3Cellipse cx='18' cy='92' rx='3.4' ry='1.4' fill='black' opacity='0.3'/%3E%3Cellipse cx='80' cy='93' rx='2.8' ry='1.2' fill='black' opacity='0.25'/%3E%3C/svg%3E\")";
 
 function PendantLamp({
   cordClass,
@@ -13,7 +25,7 @@ function PendantLamp({
   lit,
   onToggle,
 }: {
-  cordClass: string; // responsive cord length, e.g. "h-[96px] sm:h-[110px]"
+  cordClass: string;
   delay: string;
   lit: boolean;
   onToggle: () => void;
@@ -39,6 +51,37 @@ function PendantLamp({
   );
 }
 
+/* warm light behind the painting's windows — positions are % of the square
+   painting (left pane, right pane, door glass + transom) */
+function WindowGlow({ lit }: { lit: boolean }) {
+  const glow = (style: React.CSSProperties, extra = "") => (
+    <span
+      aria-hidden
+      className={`absolute rounded-[45%] blur-md transition-opacity duration-[1200ms] ${extra} ${
+        lit ? "opacity-100" : "opacity-0"
+      }`}
+      style={style}
+    />
+  );
+  const warm = (a: number) =>
+    `radial-gradient(closest-side, oklch(0.88 0.11 85 / ${a}), oklch(0.8 0.13 75 / ${a * 0.55}) 60%, transparent 100%)`;
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0">
+      {/* left pane */}
+      {glow({ left: "13.5%", top: "26.5%", width: "29.5%", height: "29%", background: warm(0.8) })}
+      {/* right pane */}
+      {glow({ left: "68%", top: "26.5%", width: "21%", height: "29%", background: warm(0.8) })}
+      {/* door glass + transom */}
+      {glow({ left: "44%", top: "26%", width: "13%", height: "34%", background: warm(0.65) })}
+      {/* soft ambient spill onto the pavement */}
+      {glow(
+        { left: "18%", top: "56%", width: "64%", height: "26%", background: warm(0.22) },
+        "blur-xl"
+      )}
+    </div>
+  );
+}
+
 export default function Hero() {
   const [lit, setLit] = useState(false);
   const toggle = () => setLit((v) => !v);
@@ -54,63 +97,118 @@ export default function Hero() {
   return (
     <header
       id="top"
-      className={`relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 transition-colors duration-1000 ${
-        lit ? "bg-shopfront-deep" : "bg-shopfront"
-      }`}
+      className="relative flex min-h-dvh flex-col items-center overflow-hidden bg-paper px-6"
     >
-      {/* panelled-fascia frame */}
+      {/* ------ the green watercolour wash — sized by its own content ------ */}
       <div
-        aria-hidden
-        className="pointer-events-none absolute inset-4 border border-glass/25 sm:inset-6"
-      />
-
-      {/* pendant lamps, hanging in from the ceiling like through the window —
-          two on every screen; the globes drop clear of the nav on mobile */}
-      <div className="absolute top-0 left-[16%] sm:left-[14%]">
-        <PendantLamp cordClass="h-[92px] sm:h-[110px]" delay="0s" lit={lit} onToggle={toggle} />
-      </div>
-      <div className="absolute top-0 right-[16%]">
-        <PendantLamp cordClass="h-[136px] sm:h-[164px]" delay="-3.2s" lit={lit} onToggle={toggle} />
-      </div>
-
-      {/* the window lettering */}
-      <h1 className="decal pl-[0.3em] text-center text-[clamp(2.6rem,10vw,5.75rem)] leading-none tracking-[0.3em] text-glass">
-        Porcelain
-        <span className="sr-only"> Coffee Bar — speciality coffee on Old Elvet, Durham</span>
-      </h1>
-      <div aria-hidden className="mt-5 h-px w-24 bg-glass/50" />
-      <p
-        aria-hidden
-        className="decal mt-5 pl-[0.62em] text-center text-[clamp(0.9rem,2.4vw,1.2rem)] tracking-[0.62em] text-glass/90"
+        className="relative -mx-6 w-[calc(100%+3rem)] pb-24"
+        style={{ maskImage: WASH_MASK, WebkitMaskImage: WASH_MASK, maskSize: "100% 100%", WebkitMaskSize: "100% 100%" }}
       >
-        Coffee
-      </p>
+        {/* day wash */}
+        <div
+          aria-hidden
+          className={`absolute inset-0 transition-opacity duration-1000 ${lit ? "opacity-0" : "opacity-100"}`}
+          style={{
+            background:
+              "radial-gradient(120% 90% at 22% 0%, oklch(0.52 0.105 130 / 0.9), transparent 60%)," +
+              "radial-gradient(110% 100% at 78% 8%, oklch(0.44 0.105 136 / 0.95), transparent 66%)," +
+              "linear-gradient(176deg, oklch(0.45 0.105 133) 55%, oklch(0.5 0.1 131) 100%)",
+          }}
+        />
+        {/* dusk wash — the lights are on */}
+        <div
+          aria-hidden
+          className={`absolute inset-0 transition-opacity duration-1000 ${lit ? "opacity-100" : "opacity-0"}`}
+          style={{
+            background:
+              "radial-gradient(120% 90% at 22% 0%, oklch(0.42 0.095 133 / 0.9), transparent 60%)," +
+              "radial-gradient(110% 100% at 78% 8%, oklch(0.34 0.09 137 / 0.95), transparent 66%)," +
+              "linear-gradient(176deg, oklch(0.36 0.095 134) 55%, oklch(0.41 0.09 130) 100%)",
+          }}
+        />
+        {/* pigment granulation */}
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-30 mix-blend-soft-light"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.02' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23w)'/%3E%3C/svg%3E\")",
+            backgroundSize: "300px 300px",
+          }}
+        />
 
-      <p className="mt-10 max-w-md text-center font-serif text-lg leading-relaxed text-glass/95">
+        {/* the window lettering, on the wash */}
+        <div className="relative z-[1] flex flex-col items-center pt-[clamp(6.5rem,13dvh,8rem)]">
+          <h1 className="decal pl-[0.3em] text-center text-[clamp(2.4rem,9vw,4.5rem)] leading-none tracking-[0.3em] text-glass">
+            Porcelain
+            <span className="sr-only"> Coffee Bar — speciality coffee on Old Elvet, Durham</span>
+          </h1>
+          <div aria-hidden className="mt-4 h-px w-24 bg-glass/50" />
+          <p
+            aria-hidden
+            className="decal mt-4 pl-[0.62em] text-center text-[clamp(0.85rem,2.2vw,1.1rem)] tracking-[0.62em] text-glass/90"
+          >
+            Coffee
+          </p>
+        </div>
+      </div>
+
+      {/* pendant lamps, hanging into the wash — outboard of the wordmark,
+          dropping below the nav buttons on small screens */}
+      <div className="absolute top-0 left-[3%] sm:left-[6%]">
+        <PendantLamp cordClass="h-[76px] sm:h-[104px]" delay="0s" lit={lit} onToggle={toggle} />
+      </div>
+      <div className="absolute top-0 right-[3%] sm:right-[6%]">
+        <PendantLamp cordClass="h-[96px] sm:h-[150px]" delay="-3.2s" lit={lit} onToggle={toggle} />
+      </div>
+
+      {/* ------ the painting, emerging from the bleed ------ */}
+      <div
+        className="relative -mt-16 w-[min(88vw,46dvh,30rem)]"
+        style={{
+          maskImage: ART_MASK,
+          WebkitMaskImage: ART_MASK,
+          maskSize: "100% 100%",
+          WebkitMaskSize: "100% 100%",
+        }}
+      >
+        <Image
+          src={watercolour}
+          alt="Watercolour painting of the green shopfront at 3C Old Elvet — Porcelain lettered on both windows, the door between them."
+          priority
+          className={`w-full transition-[filter] duration-[1200ms] ${lit ? "saturate-[1.06] sepia-[0.05]" : ""}`}
+          sizes="(min-width: 640px) 480px, 88vw"
+        />
+        <WindowGlow lit={lit} />
+      </div>
+
+      {/* ------ the line, the facts — on paper ------ */}
+      <p className="relative mt-[clamp(0.5rem,2dvh,1.5rem)] max-w-md text-center font-serif text-lg leading-relaxed text-ink">
         A dad-and-daughter coffee bar on Old Elvet.
       </p>
-
-      <div className="mt-8 flex flex-col items-center gap-2.5 sm:flex-row sm:gap-6">
-        <span className="font-mono text-[0.8125rem] tracking-tight text-glass/80">
+      <div className="relative mt-4 mb-20 flex flex-col items-center gap-2.5 sm:flex-row sm:gap-6">
+        <span className="font-mono text-[0.8125rem] tracking-tight text-ink-soft">
           3C OLD ELVET, DURHAM
         </span>
-        <span aria-hidden className="hidden size-1 rounded-full bg-glass/50 sm:block" />
-        <OpenChip onGreen />
+        <span aria-hidden className="hidden size-1 rounded-full bg-ink/30 sm:block" />
+        <OpenChip />
       </div>
+
+      {/* seamless hand-off: paper dissolves into the porcelain of the page */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-36"
+        style={{ background: "linear-gradient(to bottom, transparent, var(--color-porcelain))" }}
+      />
 
       {/* quiet scroll cue */}
       <a
         href="#welcome"
         aria-label="Scroll to the good bit"
-        className="absolute bottom-8 text-glass/60 transition-colors hover:text-glass"
+        className="absolute bottom-6 z-[1] text-ink/45 transition-colors hover:text-ink"
       >
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-          <path
-            d="M3 6.5 L9 12.5 L15 6.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
+          <path d="M3 6.5 L9 12.5 L15 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       </a>
     </header>

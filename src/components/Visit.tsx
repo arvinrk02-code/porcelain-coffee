@@ -1,5 +1,6 @@
 import Image from "next/image";
 import OpenChip from "./OpenChip";
+import WatercolourEdge from "./WatercolourEdge";
 import { HOURS_ROWS } from "@/lib/hours";
 import benches from "../../public/photos/benches.jpeg";
 
@@ -9,9 +10,10 @@ export default function Visit() {
   return (
     <section
       id="visit"
-      className="scroll-mt-0 bg-shopfront text-glass"
+      className="relative mt-6 scroll-mt-0 bg-shopfront text-glass"
       aria-label="Find us"
     >
+      <WatercolourEdge className="absolute inset-x-0 top-0 h-5 -translate-y-full text-shopfront" />
       <div className="mx-auto grid w-full max-w-6xl gap-14 px-6 py-24 sm:grid-cols-[1.1fr_1fr] sm:gap-16 sm:py-28">
         <div>
           <h2 className="decal pl-[0.3em] text-[1.05rem] tracking-[0.3em]">Find us</h2>

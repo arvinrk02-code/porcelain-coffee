@@ -31,7 +31,7 @@ const fragmentMono = Fragment_Mono({
 });
 
 // Swap for the real domain on deploy — used to resolve og/twitter image URLs.
-const SITE_URL = "https://porcelain-coffee-demo.vercel.app";
+const SITE_URL = "https://arvinrk02-code.github.io/porcelain-coffee";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

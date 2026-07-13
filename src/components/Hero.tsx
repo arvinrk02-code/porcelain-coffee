@@ -8,12 +8,12 @@ import OpenChip from "./OpenChip";
    lamps from inside hang into the field — click one and the lights come on. */
 
 function PendantLamp({
-  drop,
+  cordClass,
   delay,
   lit,
   onToggle,
 }: {
-  drop: number; // cord length in px
+  cordClass: string; // responsive cord length, e.g. "h-[96px] sm:h-[110px]"
   delay: string;
   lit: boolean;
   onToggle: () => void;
@@ -24,10 +24,10 @@ function PendantLamp({
       onClick={onToggle}
       aria-pressed={lit}
       aria-label={lit ? "Turn the lamps off" : "Turn the lamps on"}
-      className="group origin-top cursor-pointer motion-safe:animate-[lamp-sway_7s_ease-in-out_infinite] focus-visible:outline-brass"
+      className="group origin-top cursor-pointer p-2 motion-safe:animate-[lamp-sway_7s_ease-in-out_infinite] focus-visible:outline-brass"
       style={{ animationDelay: delay }}
     >
-      <span className="block h-[var(--drop)] w-px bg-glass/45 mx-auto" style={{ ["--drop" as string]: `${drop}px` }} />
+      <span className={`block w-px bg-glass/45 mx-auto ${cordClass}`} />
       <span
         className={`block size-9 rounded-full transition-all duration-700 ${
           lit
@@ -64,16 +64,13 @@ export default function Hero() {
         className="pointer-events-none absolute inset-4 border border-glass/25 sm:inset-6"
       />
 
-      {/* pendant lamps, hanging in from the ceiling like through the window */}
-      <div className="absolute top-0 left-[14%] hidden sm:block">
-        <PendantLamp drop={110} delay="0s" lit={lit} onToggle={toggle} />
+      {/* pendant lamps, hanging in from the ceiling like through the window —
+          two on every screen; the globes drop clear of the nav on mobile */}
+      <div className="absolute top-0 left-[16%] sm:left-[14%]">
+        <PendantLamp cordClass="h-[92px] sm:h-[110px]" delay="0s" lit={lit} onToggle={toggle} />
       </div>
-      <div className="absolute top-0 right-[16%] hidden sm:block">
-        <PendantLamp drop={164} delay="-3.2s" lit={lit} onToggle={toggle} />
-      </div>
-      {/* single lamp on mobile */}
-      <div className="absolute top-0 right-[12%] sm:hidden">
-        <PendantLamp drop={84} delay="0s" lit={lit} onToggle={toggle} />
+      <div className="absolute top-0 right-[16%]">
+        <PendantLamp cordClass="h-[136px] sm:h-[164px]" delay="-3.2s" lit={lit} onToggle={toggle} />
       </div>
 
       {/* the window lettering */}

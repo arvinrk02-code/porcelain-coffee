@@ -93,7 +93,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <ShopfrontLineArt className="hidden w-full text-ink sm:block" />
+        <ShopfrontLineArt className="mx-auto w-full max-w-sm text-ink sm:max-w-none" />
       </section>
 
       <Menu />

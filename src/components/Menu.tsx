@@ -113,7 +113,7 @@ function List({
   title: string;
   icon: React.ReactNode;
   items: string[];
-  onRest: (e: React.MouseEvent) => void;
+  onRest: (e: React.PointerEvent) => void;
 }) {
   return (
     <div>
@@ -129,7 +129,7 @@ function List({
           return (
             <li key={item}>
               <span
-                onMouseEnter={onRest}
+                onPointerEnter={onRest}
                 className="group flex w-full items-baseline cursor-default"
               >
                 <span className="font-serif text-[1.0625rem] leading-snug transition-colors group-hover:text-shopfront-deep">
@@ -160,7 +160,7 @@ export default function Menu() {
   const ringHostRef = useRef<HTMLDivElement | null>(null);
   const lastSet = useRef(0);
 
-  const setDownCup = useCallback((e: React.MouseEvent) => {
+  const setDownCup = useCallback((e: React.PointerEvent) => {
     const section = sectionRef.current;
     const host = ringHostRef.current;
     if (!section || !host) return;

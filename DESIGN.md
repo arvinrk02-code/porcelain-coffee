@@ -1,6 +1,18 @@
 # Porcelain — Style Reference
 
-> the shopfront, as a page
+> the shopfront, as a page — now painted in watercolour
+
+**Watercolour system (hero + motif):** the hero is a deep-green watercolour wash
+(layered gradients + turbulence granulation, ragged pigment edge via SVG mask)
+holding the nav and wordmark, above a watercolour painting of the shopfront
+(`public/art/shopfront-watercolour.jpg`, generated img2img from our own shopfront
+photo, windows deliberately unlit). The pendant lamps light the painting: warm
+radial glows fade in over the window positions, the wash crossfades to dusk.
+The painting's paper (`--color-paper #f8f1e1`) dissolves into the page via a
+blurred-rect mask, and the hero's foot fades into porcelain — the scroll into
+the next section is seamless. The motif continues at a whisper: 5% paper grain
+site-wide (`body::after`), and `WatercolourEdge` pigment edges where the
+mahogany and green bands meet the paper.
 
 **Theme:** light. The page is a visit: a full drench of the shop's own painted
 green (outside), a warm porcelain canvas with dark walnut accents (inside), and

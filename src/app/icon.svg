@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- the coaster: hardcoded colours — favicons render without the stylesheet -->
+  <circle cx="50" cy="50" r="49" fill="#d4402e"/>
+  <path d="M 36 26 L 66 26 L 66 54 L 59 61 L 44 61 L 44 76 L 36 76 Z
+           M 44 34 L 44 53 L 55.5 53 L 58 50.5 L 58 34 Z"
+        fill="#f7f4ec" fill-rule="evenodd"/>
+</svg>

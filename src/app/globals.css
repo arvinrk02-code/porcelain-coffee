@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/*
+  Porcelain — brand tokens, sampled from the real shop (see BRAND.md + research/).
+  Two surfaces carry the page: shopfront green (outside) and porcelain (inside),
+  with mahogany when you step in. Red only in coaster-sized doses.
+*/
+@theme {
+  /* surfaces */
+  --color-shopfront: oklch(0.46 0.11 133); /* the painted green, mid              */
+  --color-shopfront-deep: oklch(0.35 0.09 135); /* panel shadow                   */
+  --color-shopfront-lit: oklch(0.68 0.1 128); /* gloss highlight                  */
+  --color-porcelain: oklch(0.96 0.012 95); /* warm bone canvas                    */
+  --color-cream: oklch(0.92 0.02 95); /* plate cream, deeper                      */
+  --color-mahogany: oklch(0.32 0.055 45); /* panelled walls                       */
+  --color-walnut: oklch(0.42 0.07 50); /* table tops                              */
+
+  /* voice */
+  --color-ink: oklch(0.24 0.012 75); /* warm espresso near-black                  */
+  --color-ink-soft: oklch(0.4 0.02 70); /* secondary text on porcelain            */
+  --color-glass: oklch(0.97 0.008 95); /* white decal text on green               */
+  --color-roundel: oklch(0.6 0.2 27); /* coaster red — stars, marks               */
+  --color-roundel-deep: oklch(0.5 0.19 27); /* red when it must carry text        */
+  --color-brass: oklch(0.68 0.09 80); /* letterbox brass, hairlines               */
+  --color-hairline: oklch(0.87 0.02 90); /* quiet borders on porcelain            */
+
+  /* motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* font tokens reference next/font variables, so they must be inline —
+   plain @theme strips tokens no utility uses (--font-display died that way) */
+@theme inline {
+  --font-display: var(--font-khand), "Arial Narrow", sans-serif;
+  --font-serif: var(--font-literata), Georgia, serif;
+  --font-mono: var(--font-fragment), "Courier New", monospace;
+}
+
+body {
+  background: var(--color-porcelain);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+}
+
+::selection {
+  background: var(--color-shopfront);
+  color: var(--color-glass);
+}
+
+/* The "glass decal" system — the shop's window lettering. Used like the shop
+   uses it: the wordmark, and a couple of painted marks. Not section grammar. */
+.decal {
+  font-family: var(--font-khand), "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+/* focus — brass ring, visible on green and porcelain alike */
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ------ motion ------ */
+
+/* pendant lamps: slow sway, hinged at the ceiling */
+@keyframes lamp-sway {
+  0%,
+  100% {
+    transform: rotate(-1.6deg);
+  }
+  50% {
+    transform: rotate(1.6deg);
+  }
+}
+
+/* dropped-coaster wobble (footer roundel) */
+@keyframes coaster-settle {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  20% {
+    transform: rotate(-9deg) scale(1.04);
+  }
+  45% {
+    transform: rotate(6deg);
+  }
+  70% {
+    transform: rotate(-3deg);
+  }
+  88% {
+    transform: rotate(1.2deg);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

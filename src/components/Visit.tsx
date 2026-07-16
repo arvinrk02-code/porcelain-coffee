@@ -19,7 +19,7 @@ export default function Visit() {
           <h2 className="decal pl-[0.3em] text-[1.05rem] tracking-[0.3em]">Find us</h2>
 
           <p className="mt-8 font-serif text-[clamp(1.5rem,3vw,2rem)] leading-snug text-balance">
-            Just over Elvet Bridge — look for the green front.
+            Just over Elvet Bridge. Look for the green front.
           </p>
 
           <address className="mt-6 font-serif text-lg not-italic leading-relaxed text-glass/90">
@@ -56,7 +56,7 @@ export default function Visit() {
               Open in maps
             </a>
             <p className="font-serif text-[0.9375rem] italic text-glass/80">
-              Dogs welcome — there’s a bowl by the door.
+              Dogs welcome. There’s a bowl by the door.
             </p>
           </div>
 

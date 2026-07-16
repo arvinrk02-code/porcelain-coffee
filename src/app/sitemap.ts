@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://arvinrk02-code.github.io/porcelain-coffee/",
+      url: "https://porcelain-coffee.vercel.app/",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

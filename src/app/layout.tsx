@@ -31,11 +31,11 @@ const fragmentMono = Fragment_Mono({
 });
 
 // Swap for the real domain on deploy — used to resolve og/twitter image URLs.
-const SITE_URL = "https://arvinrk02-code.github.io/porcelain-coffee";
+const SITE_URL = "https://porcelain-coffee.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Porcelain Coffee Bar — Speciality Coffee on Old Elvet, Durham",
+  title: "Porcelain Coffee Bar · Speciality Coffee on Old Elvet, Durham",
   description:
     "Independent, family-run speciality coffee bar at 3C Old Elvet, Durham. Proper flat whites on locally roasted Fika beans, homemade cakes, dogs welcome. Open 8:30–5, closed Tuesdays.",
   alternates: { canonical: "/" },
@@ -44,14 +44,14 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Porcelain Coffee Bar",
     locale: "en_GB",
-    title: "Porcelain Coffee Bar — Old Elvet, Durham",
+    title: "Porcelain Coffee Bar · Old Elvet, Durham",
     description:
       "Proper flat whites, homemade cakes. Green front, wood inside. Open 8:30–5, closed Tuesdays.",
     images: ["/photos/shopfront.jpeg"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Porcelain Coffee Bar — Old Elvet, Durham",
+    title: "Porcelain Coffee Bar · Old Elvet, Durham",
     description: "Proper flat whites, homemade cakes. Green front, wood inside.",
     images: ["/photos/shopfront.jpeg"],
   },

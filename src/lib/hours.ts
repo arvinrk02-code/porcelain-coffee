@@ -39,7 +39,7 @@ export function openState(): OpenState {
   const { day, minutes } = getDurhamNow();
 
   if (day === CLOSED_DAY) {
-    return { open: false, label: "Closed Tuesdays — back tomorrow, 8:30" };
+    return { open: false, label: "Closed Tuesdays, back tomorrow at 8:30" };
   }
   if (minutes < OPEN_MIN) {
     return { open: false, label: "Opens 8:30 today" };
@@ -48,7 +48,7 @@ export function openState(): OpenState {
     const left = CLOSE_MIN - minutes;
     return {
       open: true,
-      label: left <= 45 ? "Open — closes soon, 5pm" : "Open now — till 5pm",
+      label: left <= 45 ? "Open, closes soon at 5pm" : "Open now, till 5pm",
     };
   }
   // after close: tomorrow is a Tuesday?
@@ -57,8 +57,8 @@ export function openState(): OpenState {
     open: false,
     label:
       tomorrow === CLOSED_DAY
-        ? "Closed — back Wednesday, 8:30"
-        : "Closed — back tomorrow, 8:30",
+        ? "Closed, back Wednesday at 8:30"
+        : "Closed, back tomorrow at 8:30",
   };
 }
 

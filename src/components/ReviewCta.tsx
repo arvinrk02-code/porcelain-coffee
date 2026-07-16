@@ -71,7 +71,7 @@ export default function ReviewCta() {
 
   return (
     <div className="mt-20 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-hairline pt-10">
-      <p className="font-serif text-lg italic text-ink">Been in? Pass it on —</p>
+      <p className="font-serif text-lg italic text-ink">Been in? Pass it on.</p>
       <a
         ref={ctaRef}
         href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x487e7d00041573b3:0x9e77cb718e17643a!12e1"

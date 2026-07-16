@@ -145,7 +145,7 @@ export default function Hero() {
         <div className="relative z-[1] flex flex-col items-center pt-[clamp(6.5rem,13dvh,8rem)]">
           <h1 className="decal pl-[0.3em] text-center text-[clamp(2.4rem,9vw,4.5rem)] leading-none tracking-[0.3em] text-glass">
             Porcelain
-            <span className="sr-only"> Coffee Bar — speciality coffee on Old Elvet, Durham</span>
+            <span className="sr-only"> Coffee Bar, speciality coffee on Old Elvet, Durham</span>
           </h1>
           <div aria-hidden className="mt-4 h-px w-24 bg-glass/50" />
           <p
@@ -170,7 +170,7 @@ export default function Hero() {
       <div className="relative -mt-6 w-[min(88vw,46dvh,30rem)]">
         <Image
           src={watercolour}
-          alt="Watercolour painting of the green shopfront at 3C Old Elvet — Porcelain lettered on both windows, the door between them."
+          alt="Watercolour painting of the green shopfront at 3C Old Elvet, Porcelain lettered on both windows, the door between them."
           priority
           className={`w-full transition-[filter] duration-[1200ms] ${lit ? "saturate-[1.06] sepia-[0.05]" : ""}`}
           sizes="(min-width: 640px) 480px, 88vw"
@@ -207,7 +207,7 @@ export default function Hero() {
       <a
         href="#welcome"
         aria-label="Scroll to the good bit"
-        className="absolute bottom-6 z-[1] text-ink/45 transition-colors hover:text-ink"
+        className="absolute bottom-3 z-[1] p-3.5 text-ink/45 transition-colors hover:text-ink"
       >
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
           <path d="M3 6.5 L9 12.5 L15 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

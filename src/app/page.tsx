@@ -80,13 +80,13 @@ export default function Home() {
       >
         <div>
           <h2 className="font-serif text-[clamp(2rem,5vw,3.25rem)] font-semibold leading-tight text-balance">
-            Hello — we’re Porcelain.
+            Hello. We’re Porcelain.
           </h2>
           <div className="mt-8 max-w-xl space-y-5 font-serif text-[1.0625rem] leading-[1.7] text-ink">
             <p>
               A dad-and-daughter coffee bar in a green Victorian shopfront on
               Old Elvet. We pull proper flat whites on Fika beans, roasted up
-              the road in the North East, and bake our own cakes — labelled by
+              the road in the North East, and bake our own cakes, labelled by
               hand at the counter.
             </p>
             <p className="text-ink-soft italic">
@@ -114,7 +114,7 @@ export default function Home() {
           <figure>
             <Image
               src={cabinet}
-              alt="The cake cabinet — traybakes with piped cream, and a handwritten label for the pecan and banana loaf."
+              alt="The cake cabinet: traybakes with piped cream, and a handwritten label for the pecan and banana loaf."
               className="h-full w-full object-cover"
               sizes="(min-width: 640px) 60vw, 100vw"
               placeholder="blur"
@@ -142,7 +142,7 @@ export default function Home() {
             <figure>
               <Image
                 src={doorInside}
-                alt="The door from inside — lamplight, café curtains, and the CLOSED sign waiting to be flipped."
+                alt="The door from inside: lamplight, café curtains, and the CLOSED sign waiting to be flipped."
                 className="h-full w-full object-cover"
                 sizes="(min-width: 640px) 24vw, 100vw"
                 placeholder="blur"
@@ -151,7 +151,7 @@ export default function Home() {
             <figure>
               <Image
                 src={counter}
-                alt="Behind the counter — the cake cabinet, the waffle iron, tulips beside the espresso machine."
+                alt="Behind the counter: the cake cabinet, the waffle iron, tulips beside the espresso machine."
                 className="h-full w-full object-cover"
                 sizes="(min-width: 640px) 48vw, 100vw"
                 placeholder="blur"
@@ -160,7 +160,7 @@ export default function Home() {
             <figure>
               <Image
                 src={room}
-                alt="The room — customers at the tables under the model sailboat."
+                alt="The room: customers at the tables under the model sailboat."
                 className="h-full w-full object-cover"
                 sizes="(min-width: 640px) 27vw, 100vw"
                 placeholder="blur"
@@ -169,7 +169,7 @@ export default function Home() {
           </div>
 
           <p className="mt-8 max-w-2xl font-serif text-lg italic leading-relaxed text-porcelain/90">
-            Mahogany panelling, globe lamps, a model sailboat on the shelf —
+            Mahogany panelling, globe lamps, a model sailboat on the shelf,
             and the saucers have our name round the rim.
           </p>
         </div>

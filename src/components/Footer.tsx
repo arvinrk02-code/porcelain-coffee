@@ -50,7 +50,7 @@ export default function Footer() {
           ref={ref}
           type="button"
           onClick={wobble}
-          aria-label="The Porcelain coaster — give it a spin"
+          aria-label="The Porcelain coaster. Give it a spin"
           className="cursor-pointer rounded-full"
         >
           <Roundel size={76} />
@@ -91,7 +91,7 @@ export default function Footer() {
         </div>
 
         <p className="max-w-md font-mono text-[0.6875rem] leading-relaxed tracking-tight text-glass/75">
-          UNOFFICIAL DEMO — MADE WITH AFFECTION, NOT AFFILIATION. PHOTOGRAPHS BY
+          UNOFFICIAL DEMO, MADE WITH AFFECTION, NOT AFFILIATION. PHOTOGRAPHS BY
           GOOGLE MAPS CONTRIBUTORS; REVIEWS REAL AND UNEDITED.
         </p>
       </div>

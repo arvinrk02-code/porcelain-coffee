@@ -1,14 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import OpenChip from "./OpenChip";
+import { openState } from "@/lib/hours";
 import watercolour from "../../public/art/shopfront-watercolour.jpg";
 
 /* The hero is now a painting of the shopfront. A deep green watercolour wash
    carries the nav and wordmark, bleeding into warm paper where the painted
-   shop stands. The pendant lamps still work the lights — click one and the
-   painting's windows glow like the photograph the painting came from. */
+   shop stands. The pendant lamps work the lights — click one and the painting's
+   windows glow like the photograph the painting came from.
+
+   The lights keep the shop's real hours: land while Porcelain is actually open
+   (8:30–5, closed Tuesdays, Europe/London) and they're already on. */
+
+/* Whether the shop is open can only be answered in the visitor's browser: the
+   page is a static export, so its HTML is baked at build time and can't know
+   when anyone will read it. useSyncExternalStore is the sanctioned way to read
+   that — the server snapshot matches the baked HTML (lights off), the real
+   answer arrives on the client, and nothing mismatches on hydration. It also
+   re-checks on the minute, so the lights follow the shop if you sit here over
+   opening or closing time. */
+const shopClock = {
+  subscribe(onChange: () => void) {
+    const id = setInterval(onChange, 60_000);
+    return () => clearInterval(id);
+  },
+  getSnapshot: () => openState().open,
+  getServerSnapshot: () => false,
+};
 
 // The paper colour bled inward over every edge of the painting, so it has no
 // boundary against the page — the shop's centre stays crisp, its edges (and the
@@ -87,11 +107,18 @@ function WindowGlow({ lit }: { lit: boolean }) {
 }
 
 export default function Hero() {
-  const [lit, setLit] = useState(false);
-  const toggle = () => setLit((v) => !v);
+  // the shop's own hours decide the lights, until you take the switch off it
+  const shopOpen = useSyncExternalStore(
+    shopClock.subscribe,
+    shopClock.getSnapshot,
+    shopClock.getServerSnapshot
+  );
+  const [override, setOverride] = useState<boolean | null>(null);
+  const lit = override ?? shopOpen;
+  const toggle = () => setOverride(!lit);
 
-  // for the nosy — found, not announced
   useEffect(() => {
+    // for the nosy — found, not announced
     console.log(
       "%c☕ You found the quiet bit. Try clicking a lamp.\n3C Old Elvet, if you're passing.",
       "font-family: Georgia, serif; font-size: 13px;"
